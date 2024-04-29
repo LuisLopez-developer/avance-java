@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 public class Caso3 extends JFrame implements ActionListener{
@@ -28,7 +30,6 @@ public class Caso3 extends JFrame implements ActionListener{
         this.setTitle("SENATI");
         this.setSize(600, 500);
         this.setLocationRelativeTo(null);
-        this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -39,7 +40,7 @@ public class Caso3 extends JFrame implements ActionListener{
         mi_caso1 = new JMenuItem("Ver caso 1");
         mi_caso1.addActionListener(this);
         
-        mi_caso2 = new JMenuItem("Ver caso 1");
+        mi_caso2 = new JMenuItem("Ver caso 2");
         mi_caso2.addActionListener(this);
         
         msp = new JSeparator();
@@ -57,16 +58,42 @@ public class Caso3 extends JFrame implements ActionListener{
         this.add(dsk_escritorio);
     }
     
+    public void AbrirFormulario(JInternalFrame frm){
+        JInternalFrame[] arr_ifrm = dsk_escritorio.getAllFrames();
+        
+        boolean abierto = false;
+        
+        for(JInternalFrame ifrm: arr_ifrm){
+            if(frm.getClass().isInstance(frm)){
+                JOptionPane.showMessageDialog(null, "Ventana abierta");
+                abierto = true;
+            }
+        }
+        
+        if(!abierto){
+            dsk_escritorio.add(frm);
+            frm.setLocation((dsk_escritorio.getWidth() - frm.getWidth()) / 2, (dsk_escritorio.getHeight() - frm.getHeight()) / 2 );
+            frm.show();
+        }
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource() == mi_caso1){ 
+            guia1.Caso1 caso1 = new guia1.Caso1();
+            AbrirFormulario(caso1);
+        }else if(e.getSource() == mi_caso2){
+            guia1.Caso2 caso2 = new guia1.Caso2();
+            AbrirFormulario(caso2);
+        }else if(e.getSource() == mi_salir){
+            System.exit(0);
+        }
+    }
+    
     public static void main(String args[]){
         Caso3 caso3 = new Caso3();
         caso3.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == mi_caso1){
-            Caso1 caso1 = new Caso1();
-            caso1.show();
-        }
-    }
 }
