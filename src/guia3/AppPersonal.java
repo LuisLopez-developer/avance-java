@@ -415,6 +415,12 @@ public class AppPersonal extends JFrame implements ActionListener {
                     pstm = cnx.prepareStatement(cad_sql);
                     
                     pstm.setString(1, personal.getAp_paterno());
+                    pstm.setString(2, personal.getAp_materno());
+                    pstm.setString(3, personal.getNombre());
+                    pstm.setString(4, Character.toString(personal.getGenero()) );
+                    pstm.setDate(5, (java.sql.Date) personal.getFecha_nacimiento());
+                    pstm.setFloat(6, (float) personal.getSueldo());
+                    pstm.setString(7, personal.getDni());
 
                     pstm.executeUpdate();
 
